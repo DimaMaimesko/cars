@@ -34,6 +34,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,6 +75,7 @@
         </nav>
 
         <main class="py-4">
+
             @yield('content')
         </main>
     </div>
