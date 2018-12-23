@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="container">
+
     <cities-component :cities="{{json_encode($cities)}}"></cities-component>
+
+    <currency-component :currencies="{{json_encode($currencies)}}"></currency-component>
+
+    <order-list-component></order-list-component>
+
     <div class="row justify-content-center">
         <div class="col-md-10">
                 <div>
@@ -11,8 +17,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
 
                     <order-form-component :cities="{{json_encode($cities)}}"></order-form-component>
 

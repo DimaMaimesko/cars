@@ -6,12 +6,12 @@
                         <h4 >Подобрать автомобиль</h4>
 
                         <div id="sumModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-sm">
+                            <div class="modal-dialog  modal-dialog-centered modal-sm">
                                 <div class="modal-content">
                                     <div class="alert-success">
                                         <br><br>
-                                        <h4 class="alert-success text-center">Сумма Вашего заказа</h4>
-                                        <h4 class="alert-success text-center">{{orderParams.sum}}</h4>
+                                        <h4 class="alert-success text-center">Сумма Вашего заказа #{{orderParams.order}}</h4>
+                                        <h4 class="alert-success text-center">{{orderParams.sum * currency.conversion/100}}<strong>{{currency.sign}}</strong></h4>
                                         <br><br>
                                    </div>
                                    <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -48,7 +48,7 @@
                         </div>
 
                         <button @click="sendForm" class="btn btn-danger">Выбрать</button>
-
+                    {{10000 * currency.conversion/100}}<strong>{{currency.sign}}</strong>
                 </div>
         </div>
     </div>
@@ -95,17 +95,20 @@
                 validationMessages: [],
                 showAlert: false,
                 orderParams: {},
+                currency: {},
             }
         },
         created() {
             eventBus.$on('cityChanged', (data) => {
                 this.cityStart = data;
                 this.cityFinish = data;
+            });
+            eventBus.$on('currencyChanged', (data) => {
+                this.currency = data;
             })
         },
         mounted() {
-            this.validationMessages.push('Message1');
-            this.validationMessages.push('Message2');
+
 
         },
         methods:  {
@@ -148,16 +151,16 @@
                 }
             },
             sendForm:  function() {
-                if ((this.cityStart.name.length == 0) || (this.cityFinish.name.length == 0) ){
-                    this.showAlert = true;
-                }else{
+                if(this.validateForm())
+                {
                     this.orderParams = {cityStart:  this.cityStart.id,
                                         cityFinish: this.cityFinish.id,
                                         dateStart:  this.dateStart,
                                         dateFinish: this.dateFinish,
                                         timeStart:  this.timeStart,
                                         timeFinish: this.timeFinish,
-                                        sum: ''
+                                        sum: '',
+                                        order: '',
                                        };
                     this.orderParams.sum = String(this.sumCalculate(this.orderParams));
                     let params = this.orderParams;
@@ -168,20 +171,23 @@
                     params.dateFinish.setMinutes(this.timeFinish.mm);
                     params.dateStart = params.dateStart.getTime();
                     params.dateFinish = params.dateFinish.getTime();
-                    // console.log(JSON.stringify(this.orderParams));
                     axios({
                         method: 'post',
                         url:    '/save',
                         params: {params}
                         }).then((response) => {
-                        console.log('Data: '+(response.data.sum));
+                            this.orderParams.order = response.data.order;
+                        console.log('Data: '+(response.data.order));
+
                     });
+
                     $('#sumModal').modal('show');
                 }
             },
+
             sumCalculate: (params)=> {
-                let tarif = 35;
-                let oneWay = 20;
+                let tarif = 3500;
+                let oneWay = 2000;
                 if (params.cityStart === params.cityFinish){
                     oneWay = 0;
                 }
@@ -197,24 +203,52 @@
                 let minutes = (params.dateFinish.getTime() - params.dateStart.getTime())/60000;
                 let  DAY = 1440;
                 if(minutes >= 1*DAY && minutes < 4*DAY ){
-                    tarif = 35;
+                    tarif = 3500;
                 }else
                     if(minutes >= 4*DAY && minutes < 7*DAY ){
-                        tarif = 33;
+                        tarif = 3300;
                     }else
                         if(minutes >= 7*DAY && minutes < 14*DAY ){
-                            tarif = 30;
+                            tarif = 3000;
                         }else
                             if(minutes >= 14*DAY && minutes < 30*DAY ){
-                                tarif = 28;
+                                tarif = 2800;
                             }else
                                 if(minutes >= 31*DAY){
-                                    tarif = 24;
+                                    tarif = 2400;
                                 };
                 let fullDays = Math.ceil(minutes / DAY);
                 let sum = fullDays * tarif + oneWay;
                 return sum;
-            }
+            },
+
+            isEmptyObject: (objectInput)=> {
+              for ( name in objectInput) {
+                return false;
+              }
+              return true;
+            },
+
+            validateForm: function() {
+                this.validationMessages = [];
+                this.showAlert = false;
+                if (this.isEmptyObject(this.cityStart)) {
+                    this.showAlert = true;
+                    this.validationMessages.push('Выберете город подачи')
+                };
+                if(this.isEmptyObject(this.cityFinish)) {
+                    this.showAlert = true;
+                    this.validationMessages.push('Выберете город прибытия');
+                };
+                if (this.showAlert){
+                    return false;
+                }else{
+                    this.showAlert = false;
+                    return true;
+                }
+
+            },
+
         },
     }
 </script>

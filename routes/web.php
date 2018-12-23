@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/save', 'HomeController@saveForm')->name('save');
+Route::get('/get-orders', 'HomeController@getOrders')->name('get.orders');
+Route::delete('/del-order', 'HomeController@delOrder')->name('del.order');
+Route::put('/update-currency', 'HomeController@updateCurrencyRate')->name('update.currency');

@@ -21,7 +21,9 @@ export const eventBus = new Vue;
 Vue.component('cities-component', require('./components/CitiesComponent.vue'));
 Vue.component('order-form-component', require('./components/OrderFormComponent.vue'));
 Vue.component('alert-component', require('./components/AlertComponent.vue'));
-Vue.component('sum-modal-component', require('./components/SumModalComponent.vue'));
+Vue.component('order-list-component', require('./components/OrderListComponent.vue'));
+Vue.component('currency-component', require('./components/CurrencyComponent.vue'));
+Vue.component('update-rate-component', require('./components/UpdateRateComponent.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
@@ -36,4 +38,9 @@ Vue.component('sum-modal-component', require('./components/SumModalComponent.vue
 
 const app = new Vue({
     el: '#app'
+});
+
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
 });

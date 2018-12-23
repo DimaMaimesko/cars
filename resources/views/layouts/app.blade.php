@@ -10,7 +10,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    {{--<script type="module" src="{{ asset('js/popover.js') }}"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>--}}
     <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -34,9 +37,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+                        <update-rate-component></update-rate-component>
 
 
                     </ul>
+
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -81,3 +87,9 @@
     </div>
 </body>
 </html>
+<script>
+    import UpdateRateComponent from "../../js/components/UpdateRateComponent";
+    export default {
+        components: {UpdateRateComponent}
+    }
+</script>
