@@ -1,58 +1,56 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-                <div class="col-md-10" style="width: 18rem;">
+    <div class="card  w-100" style="width: 18rem; background-color: #16181b; color: ivory">
+        <div class="card-header">
+            <h3 class="text-center">Подобрать автомобиль</h3>
+        </div>
+        <div class="card-body">
+            <alert-component :messages="validationMessages" v-show="showAlert"></alert-component>
 
-                        <h4 >Подобрать автомобиль</h4>
+            <div @click="showAlert = false">
+                <p class="text-left">Выдача</p>
+                <select style="width: 100%" class="mb-2  text-center" v-model="cityStart" @change="cityStartChanged" >
+                    <option disabled value="">Выберете место подачи</option>
+                    <option :value="city" v-for="city in cities">{{city.name}}</option>
+                </select>
 
-                        <div id="sumModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-dialog  modal-dialog-centered modal-sm">
-                                <div class="modal-content">
-                                    <div class="alert-success">
-                                        <br><br>
-                                        <h4 class="alert-success text-center">Сумма Вашего заказа #{{orderParams.order}}</h4>
-                                        <h4 class="alert-success text-center">{{orderParams.sum * currency.conversion/100}}<strong>{{currency.sign}}</strong></h4>
-                                        <br><br>
-                                   </div>
-                                   <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <alert-component :messages="validationMessages" v-show="showAlert"></alert-component>
-
-                        <div @click="showAlert = false">
-                            <p class="text-left">Выдача</p>
-                            <select v-model="cityStart" @change="cityStartChanged">
-                                <option disabled value="">Выберете место подачи</option>
-                                <option :value="city" v-for="city in cities">{{city.name}}</option>
-                            </select>
-
-                            <div class="d-flex justify-content-center">
-                                <datepicker :disabled-dates="disabledDatesStart" v-model="dateStart" @closed="dateStartChanged"></datepicker>
-                                <vue-timepicker v-model="timeStart" @change="timeStartChanged" :hide-clear-button="true"></vue-timepicker>
-                            </div>
-                        </div>
-
-                        <div @click="showAlert = false">
-                            <p class="text-left">Возврат</p>
-                            <select v-model="cityFinish">
-                                <option disabled value="">Выберете место возврата</option>
-                                <option :value="city" v-for="city in cities">{{city.name}}</option>
-                            </select>
-
-                            <div class="d-flex justify-content-center">
-                                <datepicker :disabled-dates="disabledDatesFinish" v-model="dateFinish" ></datepicker>
-                                <vue-timepicker v-model="timeFinish" @change="timeFinishChanged" :hide-clear-button="true"></vue-timepicker>
-                            </div>
-                        </div>
-
-                        <button @click="sendForm" class="btn btn-danger">Выбрать</button>
-                    {{10000 * currency.conversion/100}}<strong>{{currency.sign}}</strong>
+                <div class="d-flex justify-content-center mb-2" style="color: #16181b">
+                    <datepicker class="mr-2" :disabled-dates="disabledDatesStart" v-model="dateStart" @closed="dateStartChanged"></datepicker>
+                    <vue-timepicker v-model="timeStart" @change="timeStartChanged" :hide-clear-button="true"></vue-timepicker>
                 </div>
+            </div>
+
+            <div @click="showAlert = false">
+                <p class="text-left">Возврат</p>
+                <select style="width: 100%" class="mb-2 text-center" v-model="cityFinish">
+                    <option disabled value="">Выберете место возврата</option>
+                    <option :value="city" v-for="city in cities">{{city.name}}</option>
+                </select>
+
+                <div class="d-flex justify-content-center" style="color: #16181b">
+                    <datepicker class="mr-2" :disabled-dates="disabledDatesFinish" v-model="dateFinish" ></datepicker>
+                    <vue-timepicker v-model="timeFinish" @change="timeFinishChanged" :hide-clear-button="true"></vue-timepicker>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button @click="sendForm" class="btn btn-outline-danger">Выбрать</button>
+            </div>
+        </div>
+
+
+        <div id="sumModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="alert-success">
+                        <br><br>
+                        <h4 class="alert-success text-center">Сумма Вашего заказа #{{orderParams.order}}</h4>
+                        <h4 class="alert-success text-center">{{(orderParams.sum * currency.conversion/100).toFixed(2)}}<strong>{{currency.sign}}</strong></h4>
+                        <br><br>
+                    </div>
+                    <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script>

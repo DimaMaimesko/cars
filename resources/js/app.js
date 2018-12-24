@@ -18,12 +18,13 @@ export const eventBus = new Vue;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('cities-component', require('./components/CitiesComponent.vue'));
+Vue.component('cities-component',     require('./components/CitiesComponent.vue'));
 Vue.component('order-form-component', require('./components/OrderFormComponent.vue'));
-Vue.component('alert-component', require('./components/AlertComponent.vue'));
+Vue.component('alert-component',      require('./components/AlertComponent.vue'));
 Vue.component('order-list-component', require('./components/OrderListComponent.vue'));
-Vue.component('currency-component', require('./components/CurrencyComponent.vue'));
-Vue.component('update-rate-component', require('./components/UpdateRateComponent.vue'));
+Vue.component('currency-component',   require('./components/CurrencyComponent.vue'));
+Vue.component('update-rate-component',require('./components/UpdateRateComponent.vue'));
+Vue.component('slider-component',     require('./components/SliderComponent.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))

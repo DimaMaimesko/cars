@@ -13,12 +13,12 @@
     export default {
 
         props: {
-            currencies: {},
+            currencies: [],
         },
 
         data: function () {
             return {
-                chosenCurrency: {},
+                chosenCurrency: this.currencies[0],
             }
         },
 
@@ -29,6 +29,8 @@
             }
         },
         mounted() {
+            console.log(this.chosenCurrency);
+            eventBus.$emit('currencyChanged', this.chosenCurrency)
         },
 
 

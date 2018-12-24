@@ -550,6 +550,7 @@ Vue.component('alert-component', __webpack_require__(95));
 Vue.component('order-list-component', __webpack_require__(98));
 Vue.component('currency-component', __webpack_require__(101));
 Vue.component('update-rate-component', __webpack_require__(104));
+Vue.component('slider-component', __webpack_require__(107));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
@@ -14258,7 +14259,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(4);
-module.exports = __webpack_require__(107);
+module.exports = __webpack_require__(110);
 
 
 /***/ }),
@@ -47731,12 +47732,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        cities: {}
+        cities: []
     },
 
     data: function data() {
         return {
-            chosenCity: {}
+            chosenCity: this.cities[0]
         };
     },
 
@@ -47746,7 +47747,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             __WEBPACK_IMPORTED_MODULE_0__app__["eventBus"].$emit('cityChanged', this.chosenCity);
         }
     },
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        console.log(this.chosenCity);
+        __WEBPACK_IMPORTED_MODULE_0__app__["eventBus"].$emit('cityChanged', this.chosenCity);
+    }
 });
 
 /***/ }),
@@ -47868,8 +47872,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_timepicker__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_timepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue2_timepicker__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app__ = __webpack_require__(4);
-//
-//
 //
 //
 //
@@ -51024,71 +51026,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
+  return _c(
+    "div",
+    {
+      staticClass: "card  w-100",
+      staticStyle: {
+        width: "18rem",
+        "background-color": "#16181b",
+        color: "ivory"
+      }
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-10", staticStyle: { width: "18rem" } },
+        { staticClass: "card-body" },
         [
-          _c("h4", [_vm._v("Подобрать автомобиль")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade bd-example-modal-sm",
-              attrs: {
-                id: "sumModal",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "mySmallModalLabel",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "modal-dialog  modal-dialog-centered modal-sm" },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _c("div", { staticClass: "alert-success" }, [
-                      _c("br"),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("h4", { staticClass: "alert-success text-center" }, [
-                        _vm._v(
-                          "Сумма Вашего заказа #" +
-                            _vm._s(_vm.orderParams.order)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("h4", { staticClass: "alert-success text-center" }, [
-                        _vm._v(
-                          _vm._s(
-                            (_vm.orderParams.sum * _vm.currency.conversion) /
-                              100
-                          )
-                        ),
-                        _c("strong", [_vm._v(_vm._s(_vm.currency.sign))])
-                      ]),
-                      _vm._v(" "),
-                      _c("br"),
-                      _c("br")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: { type: "button", "data-dismiss": "modal" }
-                      },
-                      [_vm._v("Close")]
-                    )
-                  ])
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
           _c("alert-component", {
             directives: [
               {
@@ -51124,6 +51078,8 @@ var render = function() {
                       expression: "cityStart"
                     }
                   ],
+                  staticClass: "mb-2  text-center",
+                  staticStyle: { width: "100%" },
                   on: {
                     change: [
                       function($event) {
@@ -51159,9 +51115,13 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "d-flex justify-content-center" },
+                {
+                  staticClass: "d-flex justify-content-center mb-2",
+                  staticStyle: { color: "#16181b" }
+                },
                 [
                   _c("datepicker", {
+                    staticClass: "mr-2",
                     attrs: { "disabled-dates": _vm.disabledDatesStart },
                     on: { closed: _vm.dateStartChanged },
                     model: {
@@ -51213,6 +51173,8 @@ var render = function() {
                       expression: "cityFinish"
                     }
                   ],
+                  staticClass: "mb-2 text-center",
+                  staticStyle: { width: "100%" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -51245,9 +51207,13 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "d-flex justify-content-center" },
+                {
+                  staticClass: "d-flex justify-content-center",
+                  staticStyle: { color: "#16181b" }
+                },
                 [
                   _c("datepicker", {
+                    staticClass: "mr-2",
                     attrs: { "disabled-dates": _vm.disabledDatesFinish },
                     model: {
                       value: _vm.dateFinish,
@@ -51275,23 +51241,90 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-danger", on: { click: _vm.sendForm } },
-            [_vm._v("Выбрать")]
-          ),
-          _vm._v(
-            "\n                " +
-              _vm._s((10000 * _vm.currency.conversion) / 100)
-          ),
-          _c("strong", [_vm._v(_vm._s(_vm.currency.sign))])
+          _c("div", { staticClass: "text-center mt-3" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-danger",
+                on: { click: _vm.sendForm }
+              },
+              [_vm._v("Выбрать")]
+            )
+          ])
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade bd-example-modal-sm",
+          attrs: {
+            id: "sumModal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "mySmallModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog  modal-dialog-centered modal-sm" },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "alert-success" }, [
+                  _c("br"),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "alert-success text-center" }, [
+                    _vm._v(
+                      "Сумма Вашего заказа #" + _vm._s(_vm.orderParams.order)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "alert-success text-center" }, [
+                    _vm._v(
+                      _vm._s(
+                        (
+                          (_vm.orderParams.sum * _vm.currency.conversion) /
+                          100
+                        ).toFixed(2)
+                      )
+                    ),
+                    _c("strong", [_vm._v(_vm._s(_vm.currency.sign))])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                )
+              ])
+            ]
+          )
+        ]
       )
-    ])
-  ])
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "text-center" }, [_vm._v("Подобрать автомобиль")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -51755,12 +51788,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        currencies: {}
+        currencies: []
     },
 
     data: function data() {
         return {
-            chosenCurrency: {}
+            chosenCurrency: this.currencies[0]
         };
     },
 
@@ -51770,7 +51803,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             __WEBPACK_IMPORTED_MODULE_0__app__["eventBus"].$emit('currencyChanged', this.chosenCurrency);
         }
     },
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        console.log(this.chosenCurrency);
+        __WEBPACK_IMPORTED_MODULE_0__app__["eventBus"].$emit('currencyChanged', this.chosenCurrency);
+    }
 });
 
 /***/ }),
@@ -51943,6 +51979,257 @@ if (false) {
 
 /***/ }),
 /* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(108)
+/* template */
+var __vue_template__ = __webpack_require__(109)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/SliderComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5e4b60fe", Component.options)
+  } else {
+    hotAPI.reload("data-v-5e4b60fe", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 108 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {},
+
+    data: function data() {
+        return {};
+    },
+
+    methods: {},
+    mounted: function mounted() {
+        $('.carousel').carousel();
+    }
+});
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "div",
+        {
+          staticClass: "carousel slide",
+          attrs: { id: "carouselExampleIndicators", "data-ride": "carousel" }
+        },
+        [
+          _c("ol", { staticClass: "carousel-indicators" }, [
+            _c("li", {
+              staticClass: "active",
+              attrs: {
+                "data-target": "#carouselExampleIndicators",
+                "data-slide-to": "0"
+              }
+            }),
+            _vm._v(" "),
+            _c("li", {
+              attrs: {
+                "data-target": "#carouselExampleIndicators",
+                "data-slide-to": "1"
+              }
+            }),
+            _vm._v(" "),
+            _c("li", {
+              attrs: {
+                "data-target": "#carouselExampleIndicators",
+                "data-slide-to": "2"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-inner" }, [
+            _c("div", { staticClass: "carousel-item active" }, [
+              _c("img", {
+                staticClass: "d-block w-50",
+                attrs: {
+                  src:
+                    "https://s3.amazonaws.com/findme77/1544750612_1327-r-thumb.jpg",
+                  alt: "First slide"
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "carousel-item" }, [
+              _c("img", {
+                staticClass: "d-block w-50",
+                attrs: {
+                  src:
+                    "https://s3.amazonaws.com/findme77/1544750691_su2su2lk-720.jpg-thumb.jpg",
+                  alt: "Second slide"
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "carousel-item" }, [
+              _c("img", {
+                staticClass: "d-block w-50",
+                attrs: {
+                  src:
+                    "https://s3.amazonaws.com/findme77/1544751181_The_Earth_seen_from_Apollo_17-thumb.jpg",
+                  alt: "Third slide"
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "carousel-control-prev",
+              attrs: {
+                href: "#carouselExampleIndicators",
+                role: "button",
+                "data-slide": "prev"
+              }
+            },
+            [
+              _c("span", {
+                staticClass: "carousel-control-prev-icon",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "carousel-control-next",
+              attrs: {
+                href: "#carouselExampleIndicators",
+                role: "button",
+                "data-slide": "next"
+              }
+            },
+            [
+              _c("span", {
+                staticClass: "carousel-control-next-icon",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [_vm._v("Next")])
+            ]
+          )
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5e4b60fe", module.exports)
+  }
+}
+
+/***/ }),
+/* 110 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

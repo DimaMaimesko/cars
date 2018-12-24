@@ -12,12 +12,12 @@
     export default {
 
         props: {
-            cities: {},
+            cities: [],
         },
 
         data: function () {
             return {
-                chosenCity: {},
+                chosenCity: this.cities[0],
             }
         },
 
@@ -28,6 +28,8 @@
             }
         },
         mounted() {
+            console.log(this.chosenCity);
+            eventBus.$emit('cityChanged', this.chosenCity)
         },
 
 
