@@ -12,7 +12,7 @@
     export default {
 
         props: {
-            cities: [],
+            cities: {},
         },
 
         data: function () {

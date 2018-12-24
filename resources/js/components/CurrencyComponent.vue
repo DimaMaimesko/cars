@@ -13,7 +13,7 @@
     export default {
 
         props: {
-            currencies: [],
+            currencies: {},
         },
 
         data: function () {

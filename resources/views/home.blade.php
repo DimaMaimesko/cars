@@ -78,11 +78,15 @@
 
     <div class="row">
         <div class="container">
-            <h3>Лидеры проката</h3>
+            <h3 class="text-center">Лидеры проката</h3>
             <slider-component></slider-component>
         </div>
+    </div>
 
-
+    <div class="row">
+        <div class="container">
+            <faq-accordion></faq-accordion>
+        </div>
     </div>
 
 

@@ -25,6 +25,7 @@ Vue.component('order-list-component', require('./components/OrderListComponent.v
 Vue.component('currency-component',   require('./components/CurrencyComponent.vue'));
 Vue.component('update-rate-component',require('./components/UpdateRateComponent.vue'));
 Vue.component('slider-component',     require('./components/SliderComponent.vue'));
+Vue.component('faq-accordion',        require('./components/FaqAccordion.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
