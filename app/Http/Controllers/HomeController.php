@@ -36,9 +36,6 @@ class HomeController extends Controller
         $uahCurrency = Currency::find(2);
         $uahCurrency->update(['conversion' => doubleval($rate->getValue())]);
         $currency = Currency::where('name','UAH')->first();
-        dump($currency->conversion);
-        dump($currency->updated_at);
-
         return ['rate' => $currency->conversion,
                 'updated_at' => $currency->updated_at];
     }
