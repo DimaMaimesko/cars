@@ -1,19 +1,21 @@
 <template>
     <div class="ml-3  d-flex row">
         <button @click="updateRate" type="button" class="btn btn-info" >Обновить курс валют</button>
-        <p>{{currencies[0]['conversion']}}{{currencies[0]['sign']}}={{currencies[1]['conversion']}}{{currencies[1]['sign']}}({{currencies[1]['updated_at']}})</p>
+        <p style="color: #00b3ee">1$ = {{rate}}₴ ({{updated_at}})</p>
     </div>
 </template>
 
 <script>
     export default {
-        props: {
-            currencies: {},
-        },
+
         data: function () {
             return {
-
+              rate: '',
+              updated_at: '',
             }
+        },
+        mounted() {
+            this.updateRate();
         },
         methods: {
             updateRate: function()  {
@@ -21,9 +23,13 @@
                     method: 'put',
                     url:    '/update-currency',
                 }).then((response) => {
-                    console.log(response.data);
+                    this.rate = response.data.rate;
+                    this.updated_at = response.data.updated_at.date;
+                    console.log(this.rate);
+                    console.log(this.updated_at.date);
                 });
             },
+
         },
     }
 </script>

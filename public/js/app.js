@@ -51936,21 +51936,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        currencies: {}
-    },
+
     data: function data() {
-        return {};
+        return {
+            rate: '',
+            updated_at: ''
+        };
     },
+    mounted: function mounted() {
+        this.updateRate();
+    },
+
     methods: {
         updateRate: function updateRate() {
+            var _this = this;
+
             axios({
                 method: 'put',
                 url: '/update-currency'
             }).then(function (response) {
-                console.log(response.data);
+                _this.rate = response.data.rate;
+                _this.updated_at = response.data.updated_at.date;
+                console.log(_this.rate);
+                console.log(_this.updated_at.date);
             });
         }
+
     }
 });
 
@@ -51973,17 +51984,8 @@ var render = function() {
       [_vm._v("Обновить курс валют")]
     ),
     _vm._v(" "),
-    _c("p", [
-      _vm._v(
-        _vm._s(_vm.currencies[0]["conversion"]) +
-          _vm._s(_vm.currencies[0]["sign"]) +
-          "=" +
-          _vm._s(_vm.currencies[1]["conversion"]) +
-          _vm._s(_vm.currencies[1]["sign"]) +
-          "(" +
-          _vm._s(_vm.currencies[1]["updated_at"]) +
-          ")"
-      )
+    _c("p", { staticStyle: { color: "#00b3ee" } }, [
+      _vm._v("1$ = " + _vm._s(_vm.rate) + "₴ (" + _vm._s(_vm.updated_at) + ")")
     ])
   ])
 }

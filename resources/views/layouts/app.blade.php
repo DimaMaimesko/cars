@@ -43,7 +43,7 @@
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
                                 @if (Auth::check())
-                                    <update-rate-component :currencies="{{json_encode($currencies)}}"></update-rate-component>
+                                    <update-rate-component></update-rate-component>
                                 @else
 
                                 @endif
